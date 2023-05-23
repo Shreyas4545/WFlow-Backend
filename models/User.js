@@ -52,7 +52,7 @@ userSchema.methods.isValidatedPassword = async function (
 
 // create and return jwt token
 userSchema.methods.getJwtToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: this._id }, "abchcn179j3nnxcysdu38349939933nu77s", {
     expiresIn: "1d",
   });
 };
