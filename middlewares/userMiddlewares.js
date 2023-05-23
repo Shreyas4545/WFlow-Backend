@@ -16,7 +16,7 @@ export const isLoggedIn = bigPromise(async (req, res, next) => {
     });
   }
 
-  const decode = jwt.verify(token, "71nhhshdcncnsi09e0584854ijshjsdhjdshjhjdhjds");
+  const decode = jwt.verify(token, "abchcn179j3nnxcysdu38349939933nu77s");
   // console.log(decode)
 
   req.user = await User.findOne({ _id: decode.id });
