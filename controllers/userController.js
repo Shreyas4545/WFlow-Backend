@@ -2,13 +2,12 @@ import User from "../models/User.js";
 import bigPromise from "../middlewares/bigPromise.js";
 import { cookieToken } from "../utils/cookieToken.js";
 import { mailHelper } from "../utils/mailHelper.js";
+import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
 export const signup = bigPromise(async (req, res, next) => {
-  const { name, email, password,role} = req.body;
+  let { name, email, password,role,phoneNo} = req.body;
   console.log(req.body);
-  const photo = req.body.photo;
-  const phone = req.body.phone;
   
   if (!email || !name || !password) {
     return res.status(400).json({
@@ -24,14 +23,18 @@ export const signup = bigPromise(async (req, res, next) => {
       message: "User Already Exists",
     });
   }
+
+  password = await bcrypt.hash(password,10);
+  console.log(password);
+
   const user = await User.create({
     name,
-    email: email.toLowerCase(),
-    password: password,
-    phoneNo:phone,
+    email,
+    password,
+    phoneNo,
     role:role
   });
-  user.password = undefined;
+
   res.status(200).json({
     success: true,
     message: "User added successfully!",
