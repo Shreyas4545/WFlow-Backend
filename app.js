@@ -10,12 +10,7 @@ import cookieParser from "cookie-parser";
 
 //cookies and filemiddleware
 app.use(cookieParser());
-app.get("/", function (req, res) {
-  return res.status(200).json({
-    success: true,
-    message: "Api Health is good",
-  });
-});
+
 app.use(cors());
 
 // morgan middlewares
@@ -24,6 +19,13 @@ app.use(morgan("tiny"));
 // regular middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.get("/", function (req, res) {
+  return res.status(200).json({
+    success: true,
+    message: "Api Health is good",
+  });
+});
 
 // import all routes here
 import userRoutes from "./routes/user.routes.js";
